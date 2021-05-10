@@ -1,0 +1,63 @@
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 70px;
+  }
+  
+  .card {
+    flex: 0 0 200px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  }
+ 
+  .card img {
+    max-width: 100%;
+  }
+
+  .card .p {
+    padding: 0 20px 20px;
+  }
+
+    .movie {
+        flex-direction: row;
+    }
+
+    .image {
+      height: 300px;
+      width: 200px;
+    }
+
+    .inner-addon { 
+      position: relative; 
+    }
+    
+    /* style icon */
+    .inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+    color: #505050;
+    }
+    
+    /* align icon */
+    .left-addon .glyphicon  {
+      padding-top: 12px;
+       left:  0px;
+    }
+    .right-addon .glyphicon { right: 0px;}
+    
+    /* add padding  */
+    .left-addon input  { padding-left:  30px; }
+    .right-addon input { padding-right: 30px; }
+    
+    .btn {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .search {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }

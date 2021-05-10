@@ -1,0 +1,149 @@
+
+<nav class="navbar navbar-dark bg-dark justify-content-end">
+  <div class="row">
+    <div class="col-md-6">
+        <div class="inner-addon left-addon">
+          <i class="glyphicon fa fa-search "></i>
+          <input type="text" class="form-control search" placeholder="Search" type="text" name="search" [(ngModel)]="searchMovie">
+      </div>
+      </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-light" (click)="addNewMovie()" style="width: 120px;">Add Movie</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-light" (click)="viewCart()" style="width: 100px;">CART</button>
+    </div>
+  </div>
+    </nav>
+  
+
+
+    <div class="modal fade" id="AddNewMovie" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"
+    data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+           <form [formGroup]="newMovieForm">
+  
+              <div class="form-group">
+                  <label>Title</label>
+                  <input type="text" formControlName="title" class="form-control" 
+                  [ngClass]="{'is-invalid': submitted && f.title.errors}"/>
+                  <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">Title is required</div>
+                  </div>
+              </div>
+  
+              <div class="form-group">
+                  <label>Description</label>
+                 <textarea class="form-control" name="description" id="description" formControlName="description" cols="20" rows="2"
+                 [ngClass]="{'is-invalid': submitted && f.description.errors}"></textarea>
+                 <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Description is required</div>
+                  <div *ngIf="f.description.errors.maxlength">Maxlength only 50 characters</div>
+                </div>
+              </div>
+  
+              
+              <div class="form-group">
+                  <label>Program Type</label>
+                  <select id="programType" name="programType" class="form-control" formControlName="programType"
+                      placeholder="Select program type"
+                      [ngClass]="{'is-invalid': submitted && f.programType.errors}">
+                      <option value="" disabled selected>Select program type</option>
+                      <option value="Movie">Movie</option>
+                      <option value="Series">Series</option>
+                  </select>
+                  <div *ngIf="submitted && f.programType.errors" class="invalid-feedback">
+                    <div *ngIf="f.programType.errors.required">Program type is required</div>
+                  </div>
+              </div>
+  
+              <div class="form-group">
+                  <label>Release Date</label>
+                 <input type="date" formControlName="releaseYear" class="form-control"
+                 [ngClass]="{'is-invalid': submitted && f.releaseYear.errors}"/>
+                 <div *ngIf="submitted && f.releaseYear.errors" class="invalid-feedback">
+                  <div *ngIf="f.releaseYear.errors.required">Release year is required</div>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                  <label>Poster URL</label>
+                  <input type="text" formControlName="poster" class="form-control" 
+                  [ngClass]="{'is-invalid': submitted && f.poster.errors}"/>
+                  <div *ngIf="submitted && f.poster.errors" class="invalid-feedback">
+                    <div *ngIf="f.poster.errors.required">Poster is required</div>
+                    <div *ngIf="f.poster.errors.pattern">Enter Valid URL</div>
+                  </div>
+              </div>
+  
+              <div class="form-group">
+                <label>Movie Price</label>
+                <input type="text" formControlName="price" class="form-control" 
+                [ngClass]="{'is-invalid': submitted && f.price.errors}"/>
+                <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                  <div *ngIf="f.price.errors.required">Price is required</div>
+                  <div *ngIf="f.price.errors.pattern">Enter valid price</div>
+                </div>
+            </div>
+  
+           </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="onSubmit(newMovieForm, action)">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true"
+    data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="card" style="width: 28rem; height: 100px;" *ngFor="let item of cartItems">
+              <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="{{item.poster}}" alt="movie poster" height="60px" width="100px">
+                </div>
+                <div class="col-md-8">
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <h5>{{item.price}}₹</h5>
+                </div>
+              </div> 
+              </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Proceed to buy</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <section class="card_container">
+      <div class="card" style="width: 18rem;" *ngFor="let movie of Movies | async | filter: searchMovie">
+        <img src="{{movie.poster}}" alt="movie poster" class="image">
+
+        <div class="card-body">
+          <h5 class="card-title">{{movie.title}}</h5>
+          <hr>
+          <div class="row">
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-success" (click)="buyMovie(movie.id)" style="height: 40px;"><b>BUY</b></button>
+            </div>
+          <div class="col-6">
+            <h2 style="float: right;">{{movie.price}}₹</h2>
+            <span style="float: right;"><i class="fa fa-edit" (click)="getMovieById(movie.id)"></i> | <i class="fa fa-trash" (click)="deleteMovie(movie.id)"></i></span>
+          </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+

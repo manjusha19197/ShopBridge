@@ -1,0 +1,33 @@
+.navbar {
+    background-image: url("../assets/navbar.jpg");
+    height: 120px;
+  
+}
+
+h1 {
+    font-size: 5rem;
+    /* margin-top: -250px; */
+    margin-left: 60px;
+}
+
+.footer {
+    background-image: url("../assets/footer.jpg"); 
+    height: 200px;
+    margin-top: 20px;
+    padding: 50px;
+    text-align: center;
+}
+
+img {
+    margin-left: 70px;
+}
+
+a {
+    text-decoration: none;
+    color: gray;
+    padding: 5px;
+}
+
+p {
+    color: gray;
+}
